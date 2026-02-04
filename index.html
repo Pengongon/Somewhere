@@ -3,36 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Screen Video Player</title>
+    <title>Nothing to see here...</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Prevents scrollbars */
+            overflow: hidden;
             background-color: black;
+            font-family: sans-serif;
+        }
+
+        /* The Click-to-Play Overlay */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
 
         video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: cover; /* Ensures the video fills the screen */
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            display: none; /* Hidden until clicked */
         }
     </style>
 </head>
 <body>
 
-    <video controls autoplay name="media">
+    <div id="overlay" onclick="launchExperience()">
+        <h1>CLICK TO ENTER</h1>
+    </div>
+
+    <video id="rickroll" playsinline>
         <source src="https://github.com/ShatteredDisk/rickroll/raw/refs/heads/main/rickroll.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+
+    <script>
+        function launchExperience() {
+            const video = document.getElementById('rickroll');
+            const overlay = document.getElementById('overlay');
+
+            // Show and play the video
+            video.style.display = "block";
+            video.play();
+
+            // Hide the overlay
+            overlay.style.display = "none";
+
+            // Attempt to go fullscreen (New browser security requires this to be inside a click event)
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE11 */
+                video.msRequestFullscreen();
+            }
+        }
+    </script>
 
 </body>
 </html>
