@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen Video Player</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Prevents scrollbars */
+            background-color: black;
+        }
+
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover; /* Ensures the video fills the screen */
+        }
+    </style>
+</head>
+<body>
+
+    <video controls autoplay name="media">
+        <source src="https://github.com/ShatteredDisk/rickroll/raw/refs/heads/main/rickroll.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+</body>
+</html>
